@@ -1,35 +1,35 @@
 const path = require('path');
 
 module.exports = {
-  mode: 'development',
-  entry: './src/index.js',
+  mode: 'development', // Set to 'production' for production builds
+  entry: './src/index.js', // Entry point for the app
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, 'dist'), // Output directory
   },
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.js$/, // Process .js files
         include: [
-          path.resolve(__dirname, 'src'), // Explicitly include 'src' directory
-          path.resolve(__dirname, 'node_modules/three'), // Include 'three'
-        ],g
+          path.resolve(__dirname, 'src'), // Include your source files
+          path.resolve(__dirname, 'node_modules/three'), // Ensure Three.js is transpiled
+        ],
         use: {
-          loader: 'babel-loader',
+          loader: 'babel-loader', // Use Babel loader
           options: {
-            presets: ['@babel/preset-env'],
+            presets: ['@babel/preset-env'], // Transpile modern JavaScript
           },
         },
       },
       {
-        test: /\.(glb|gltf)$/, // Process 3D model files
+        test: /\.(glb|gltf)$/, // Handle model files
         use: [
           {
             loader: 'file-loader',
             options: {
               outputPath: 'models/',
-              name: '[name].[ext]',
+              name: '[name].[ext]', // Output model files with original names
             },
           },
         ],
@@ -37,7 +37,7 @@ module.exports = {
     ],
   },
   devServer: {
-    static: './dist',
-    open: true,
+    static: './dist', // Serve content from the 'dist' folder
+    open: true, // Automatically open the browser
   },
 };
