@@ -1,26 +1,26 @@
 const path = require('path');
 
 module.exports = {
-  mode: 'development', // or 'production' for production builds
-  entry: './src/index.js',
+  mode: 'development', // Set to 'production' for production builds
+  entry: './src/index.js', // Entry point for the app
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, 'dist'), // Output directory
   },
   module: {
     rules: [
       {
-        test: /\.js$/, // Regex to target .js files
-        exclude: /node_modules/, // Don't process node_modules
+        test: /\.js$/, // Handle .js files
+        exclude: /node_modules/, // Do not process node_modules
         use: {
-          loader: 'babel-loader',
+          loader: 'babel-loader', // Use Babel to transpile
           options: {
-            presets: ['@babel/preset-env'],
+            presets: ['@babel/preset-env'], // Use the Babel preset
           },
         },
       },
       {
-        test: /\.(glb|gltf)$/, // Handle model files if needed
+        test: /\.(glb|gltf)$/, // Handle .glb/.gltf files
         use: [
           {
             loader: 'file-loader',
@@ -35,6 +35,6 @@ module.exports = {
   },
   devServer: {
     static: './dist',
-    open: true,
+    open: true, // Automatically open the browser
   },
 };
