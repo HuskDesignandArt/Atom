@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3D Model Hosted on GitHub Pages</title>
+    <title>3D Model Hosted with Local Three.js</title>
     <style>
         body {
             margin: 0;
@@ -16,10 +16,9 @@
 </head>
 <body>
     <script type="module">
-        // Import Three.js modules using local paths if possible
-        // Adjust these paths based on where you place the files in your project
-        import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.module.js';
-        import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three@0.152.2/examples/jsm/loaders/GLTFLoader.js';
+        // Import Three.js modules from local files
+        import * as THREE from '/libs/three.module.js';
+        import { GLTFLoader } from '/libs/GLTFLoader.js';
 
         // Basic Three.js setup
         const scene = new THREE.Scene();
@@ -38,7 +37,7 @@
         const loader = new GLTFLoader();
 
         // Load the .glb model using the URL for GitHub Pages
-        const modelURL = 'https://huskdesignandart.github.io/Atom/models/building%20test.glb';
+        const modelURL = './models/building%20test.glb'; // Adjust the path as needed
         loader.load(modelURL, (gltf) => {
             console.log('Model loaded:', gltf);
             scene.add(gltf.scene);
