@@ -11,7 +11,10 @@ module.exports = {
     rules: [
       {
         test: /\.js$/,
-        exclude: /node_modules\/(?!three)/, // Include three.js for Babel processing
+        include: [
+          path.resolve(__dirname, 'src'), // Explicitly include 'src' directory
+          path.resolve(__dirname, 'node_modules/three'), // Include 'three'
+        ],g
         use: {
           loader: 'babel-loader',
           options: {
