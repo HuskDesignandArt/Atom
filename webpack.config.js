@@ -1,26 +1,26 @@
 const path = require('path');
 
 module.exports = {
-  mode: 'development', // Set to 'production' for production builds
-  entry: './src/index.js', // Entry point for the app
+  mode: 'development',
+  entry: './src/index.js',
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist'), // Output directory
+    path: path.resolve(__dirname, 'dist'),
   },
   module: {
     rules: [
       {
-        test: /\.js$/, // Handle .js files
-        exclude: /node_modules/, // Do not process node_modules
+        test: /\.js$/,
+        exclude: /node_modules\/(?!three)/, // Include three.js for Babel processing
         use: {
-          loader: 'babel-loader', // Use Babel to transpile
+          loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env'], // Use the Babel preset
+            presets: ['@babel/preset-env'],
           },
         },
       },
       {
-        test: /\.(glb|gltf)$/, // Handle .glb/.gltf files
+        test: /\.(glb|gltf)$/, // Process 3D model files
         use: [
           {
             loader: 'file-loader',
@@ -35,6 +35,6 @@ module.exports = {
   },
   devServer: {
     static: './dist',
-    open: true, // Automatically open the browser
+    open: true,
   },
 };
