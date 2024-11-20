@@ -27,8 +27,9 @@
     "test-typings": "tsd",
     "typescript-checkJS": "tsc --allowJS --checkJS index.js lib/*.js --noEmit",
     "test-all": "npm run test && npm run lint && npm run typescript-checkJS && npm run test-esm"
-    "build": "webpack",
     "start": "webpack serve"
+    "build": "webpack"
+
   },
   "files": [
     "index.js",
