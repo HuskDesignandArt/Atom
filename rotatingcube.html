@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Scroll Animation</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden; /* Prevent page scrolling */
+        }
+        canvas {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <script type="module">
+        import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.module.js';
+
+        // Basic Three.js setup
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        // Creating a simple cube
+        const geometry = new THREE.BoxGeometry();
+        const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+        const cube = new THREE.Mesh(geometry, material);
+        scene.add(cube);
+
+        camera.position.z = 5;
+
+        // Rotation state
+        let rotationAmount = 0;
+        let targetRotation = 0;
+
+        // Wheel event listener to update the target rotation
+        window.addEventListener('wheel', (event) => {
+            event.preventDefault(); // Prevent the page from scrolling
+            targetRotation += event.deltaY * 0.001; // Adjust the rotation sensitivity
+        });
+
+        // Animation loop with smooth interpolation
+        let lastTime = 0;
+        function animate(time) {
+            requestAnimationFrame(animate);
+
+            // Calculate time difference (delta) between frames
+            const deltaTime = (time - lastTime) / 1000; // Convert to seconds
+            lastTime = time;
+
+            // Smoothly interpolate rotationAmount towards targetRotation
+            const smoothingFactor = 5; // Lower values result in smoother (slower) movements
+            rotationAmount += (targetRotation - rotationAmount) * smoothingFactor * deltaTime;
+
+            // Apply rotation
+            cube.rotation.x = rotationAmount;
+            cube.rotation.y = rotationAmount;
+
+            // Render the scene
+            renderer.render(scene, camera);
+        }
+        animate(0);
+    </script>
+</body>
+</html>
