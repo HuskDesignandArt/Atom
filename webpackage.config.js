@@ -1,17 +1,26 @@
 const path = require('path');
 
 module.exports = {
-  mode:'development',
-  entry: './src/index.js', // Your entry file
+  mode: 'development', // or 'production' for production builds
+  entry: './src/index.js',
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
   },
-  mode: 'development', // Use 'production' for optimized builds
   module: {
     rules: [
       {
-        test: /\.(glb|gltf)$/, // Add loaders for models if necessary
+        test: /\.js$/, // Regex to target .js files
+        exclude: /node_modules/, // Don't process node_modules
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env'],
+          },
+        },
+      },
+      {
+        test: /\.(glb|gltf)$/, // Handle model files if needed
         use: [
           {
             loader: 'file-loader',
@@ -26,6 +35,6 @@ module.exports = {
   },
   devServer: {
     static: './dist',
-    open: true, // Automatically open the browser
+    open: true,
   },
 };
