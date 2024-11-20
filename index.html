@@ -16,7 +16,8 @@
 </head>
 <body>
     <script type="module">
-        // Import Three.js modules using a CDN
+        // Import Three.js modules using local paths if possible
+        // Adjust these paths based on where you place the files in your project
         import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.module.js';
         import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three@0.152.2/examples/jsm/loaders/GLTFLoader.js';
 
@@ -37,7 +38,7 @@
         const loader = new GLTFLoader();
 
         // Load the .glb model using the URL for GitHub Pages
-        const modelURL = 'https://huskdesignandart.github.io/Atom/models/building%20test.glb'; // Replace with your actual URL
+        const modelURL = 'https://huskdesignandart.github.io/Atom/models/building%20test.glb';
         loader.load(modelURL, (gltf) => {
             console.log('Model loaded:', gltf);
             scene.add(gltf.scene);
@@ -51,7 +52,7 @@
                     console.log('Found camera during traversal:', camera);
                 }
             });
-// hi
+
             if (!foundCamera) {
                 console.warn('No camera found during traversal, using default camera.');
                 camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
