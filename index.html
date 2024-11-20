@@ -54,36 +54,30 @@
         const loader = new GLTFLoader();
         const modelURL = './models/building%20test.glb'; // Adjust path as needed
         loader.load(
-                './models/building%20test.glb',
-                (gltf) => {
-                    console.log('Model loaded:', gltf);
-                    scene.add(gltf.scene);
+          modelURL,
+            (gltf) => {
+               console.log('Model loaded:', gltf);
+               scene.add(gltf.scene);
 
-                    // Debug: Log the scene and check its properties
-                    console.log('Loaded model scene:', gltf.scene);
-                    gltf.scene.traverse((child) => {
-                        console.log('Child node:', child);
-                    });
+               // Debug: Log the scene and check its properties
+               console.log('Loaded model scene:', gltf.scene);
+               gltf.scene.traverse((child) => {
+                   console.log('Child node:', child);
+               });
 
-                    // Optionally, scale and position the model for better visibility
-                    gltf.scene.position.set(0, 0, 0); // Center the model
-                    gltf.scene.scale.set(0.1, 0.1, 0.1); // Adjust scale if too large or small
+               // Optionally, scale and position the model for better visibility
+               gltf.scene.position.set(0, 0, 0); // Center the model
+               gltf.scene.scale.set(0.1, 0.1, 0.1); // Adjust scale if too large or small
 
-                undefined,
-                (error) => {
-                    console.error('Error loading the model:', error);
-                }
-
-
-                // Ensure camera settings are correct
-                camera.aspect = window.innerWidth / window.innerHeight;
-                camera.updateProjectionMatrix();
+               // Ensure camera settings are correct
+               camera.aspect = window.innerWidth / window.innerHeight;
+               camera.updateProjectionMatrix();
             },
             undefined,
             (error) => {
-                console.error('An error occurred while loading the model:', error);
+               console.error('An error occurred while loading the model:', error);
             }
-        );
+            );
 
         // Camera movement variables
         let targetCameraZ = 5; // Initial camera position (adjust as needed)
