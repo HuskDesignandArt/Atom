@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Three.js Helmet Model Example</title>
+    <title>Three.js Local Test</title>
     <style>
         body { margin: 0; overflow: hidden; }
         canvas { display: block; }
@@ -11,8 +11,8 @@
 </head>
 <body>
     <script type="module">
-        import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.module.js';
-        import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three@0.132.2/examples/jsm/loaders/GLTFLoader.js';
+        import * as THREE from './libs/three.module.js';
+        import { GLTFLoader } from './libs/jsm/loaders/GLTFLoader.js';
 
         // Basic Three.js setup
         const scene = new THREE.Scene();
@@ -21,20 +21,19 @@
         renderer.setSize(window.innerWidth, window.innerHeight);
         document.body.appendChild(renderer.domElement);
 
-        // Add a light for better visibility of the model
-        const light = new THREE.AmbientLight(0x404040); // Soft white light
+        // Light setup
+        const light = new THREE.AmbientLight(0x404040);
         scene.add(light);
         const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
         directionalLight.position.set(10, 10, 10);
         scene.add(directionalLight);
 
-        // GLTFLoader to load the helmet model
+        // Load Helmet Model
         const loader = new GLTFLoader();
         loader.load(
-            'https://threejs.org/examples/models/gltf/DamagedHelmet/glTF/DamagedHelmet.gltf', // Example model
+            './models/DamagedHelmet.glb', // Ensure this path is correct
             (gltf) => {
                 scene.add(gltf.scene);
-                // Center the camera on the loaded model
                 camera.position.z = 5;
             },
             undefined,
@@ -43,7 +42,6 @@
             }
         );
 
-        // Animation loop
         function animate() {
             requestAnimationFrame(animate);
             renderer.render(scene, camera);
